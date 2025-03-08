@@ -12,7 +12,7 @@ static int Add([McpTool("The first one")] int a, [McpTool("The second one")] int
 }
 ```
 
-![image](https://github.com/user-attachments/assets/b10160c7-9d39-432e-a2c6-d87233fc7592)
+![image](https://github.com/user-attachments/assets/3ed7b3c9-ce78-4362-9684-3024904ada58)
 
 ## Installation
 
@@ -33,7 +33,6 @@ static int Add([McpTool("The first one")] int a, [McpTool("The second one")] int
     return a + b;
 }
 ```
-![image](https://github.com/user-attachments/assets/77a1c319-a6cc-497e-93ca-59166da4a2a6)
 
 ### 3. Configure Cursor
 
@@ -52,4 +51,4 @@ Replace `{project_path}` with the path to your Unity project.
 
 ### 4. Test Agent
 
-![image](https://github.com/user-attachments/assets/b10160c7-9d39-432e-a2c6-d87233fc7592)
+![image](https://github.com/user-attachments/assets/3ed7b3c9-ce78-4362-9684-3024904ada58)
