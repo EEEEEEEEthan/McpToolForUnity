@@ -90,24 +90,21 @@ namespace McpToolForUnity.Editor
 			{
 				var path = Path.Combine(Application.dataPath, "..", "McpCommand");
 				var targetPath = Path.GetFullPath(path);
-				if (!Directory.Exists(targetPath))
+				var editorFolderPath = AssetDatabase.GUIDToAssetPath("36e3a6be7d0292c4a82ea0b9f7e79e00");
+				var packagePath = Path.GetDirectoryName(editorFolderPath);
+				var toolPath = Path.Combine(packagePath, ".Command");
+				toolPath = Path.GetFullPath(toolPath);
+				// Copy toolPath folder to targetPath folder (overwrite)
+				Directory.CreateDirectory(targetPath);
+				foreach (var file in Directory.GetFiles(toolPath, "*", SearchOption.AllDirectories))
 				{
-					var editorFolderPath = AssetDatabase.GUIDToAssetPath("36e3a6be7d0292c4a82ea0b9f7e79e00");
-					var packagePath = Path.GetDirectoryName(editorFolderPath);
-					var toolPath = Path.Combine(packagePath, ".Command");
-					toolPath = Path.GetFullPath(toolPath);
-					// Copy toolPath folder to targetPath folder (overwrite)
-					Directory.CreateDirectory(targetPath);
-					foreach (var file in Directory.GetFiles(toolPath, "*", SearchOption.AllDirectories))
-					{
-						var relativePath = Path.GetRelativePath(toolPath, file);
-						var destFile = Path.Combine(targetPath, relativePath);
-						var destDir = Path.GetDirectoryName(destFile);
-						Directory.CreateDirectory(destDir);
-						File.Copy(file, destFile, true);
-					}
-					Debug.Log($"Copied files from {toolPath} to {targetPath}");
+					var relativePath = Path.GetRelativePath(toolPath, file);
+					var destFile = Path.Combine(targetPath, relativePath);
+					var destDir = Path.GetDirectoryName(destFile);
+					Directory.CreateDirectory(destDir);
+					File.Copy(file, destFile, true);
 				}
+				Debug.Log($"Copied files from {toolPath} to {targetPath}");
 			}
 		}
 	}
