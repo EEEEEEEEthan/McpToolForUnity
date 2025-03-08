@@ -8,11 +8,11 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <OutputPath>../../Kingdom/McpCommand/</OutputPath>
+      <OutputPath>bin/Debug</OutputPath>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <OutputPath>../../Kingdom/McpCommand/</OutputPath>
+      <OutputPath>bin/Release</OutputPath>
     </PropertyGroup>
 
 </Project>

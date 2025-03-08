@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>../../Kingdom/Assets/Game/Plugins/McpServer/</OutputPath>
+    <OutputPath>bin/Release</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <OutputPath>../../Kingdom/Assets/Game/Plugins/McpServer/</OutputPath>
+    <OutputPath>bin/Debug</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
