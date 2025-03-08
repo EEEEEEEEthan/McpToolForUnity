@@ -1,7 +1,0 @@
-started
-send: {"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{"tools":true,"prompts":false,"resources":true,"logging":false,"roots":{"listChanged":false}},"clientInfo":{"name":"cursor-vscode","version":"1.0.0"}},"jsonrpc":"2.0","id":0}
-recv: {"jsonrpc":"2.0","id":0,"result":{"protocolVersion":"2024-11-05","capabilities":{"logging":{},"prompts":{"listChanged":true},"resources":{"subscribe":true,"listChanged":true},"tools":{"listChanged":true}},"serverInfo":{"name":"unity","version":"1.0.0"}}}
-send: {"method":"notifications/initialized","jsonrpc":"2.0"}
-recv: {"jsonrpc":"2.0","result":null}
-send: {"method":"tools/list","jsonrpc":"2.0","id":1}
-recv: {"jsonrpc":"2.0","id":1,"result":{"tools":[]}}
