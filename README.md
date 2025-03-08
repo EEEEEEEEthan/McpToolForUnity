@@ -2,6 +2,8 @@
 
 2. cursor config {path}/McpCommand.exe 5000 {logpath}
 
+![image](https://github.com/user-attachments/assets/623aa104-35e0-486c-880c-6405dff5f51a)
+
 ![image](https://github.com/user-attachments/assets/cecd6cbd-8e42-4836-9f58-4975860e4987)
 
 3. Add attribute to static method
@@ -10,7 +12,7 @@
 
 4. Reload Unity Assets
 
-5. Re-enable cursor mcp tools
+5. Re-enable cursor mcp server
 
 ![image](https://github.com/user-attachments/assets/9e81d5df-969d-404a-bf58-f02ba7b37e84)
 
