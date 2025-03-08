@@ -275,6 +275,8 @@ namespace McpServer
                         paramList.Add(arguments[parameter.Name].ToObject(parameter.ParameterType));
                     }
                     var v = tool.methodInfo.Invoke(null, paramList.ToArray());
+                    if (tool.methodInfo.ReturnType == typeof(void))
+                        v = "success";
                     res = new
                     {
                         content = new[]
