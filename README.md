@@ -12,6 +12,8 @@ static int Add([McpTool("The first one")] int a, [McpTool("The second one")] int
 }
 ```
 
+![image](https://github.com/user-attachments/assets/b10160c7-9d39-432e-a2c6-d87233fc7592)
+
 ## Installation
 
 ### 1. Unity Package
