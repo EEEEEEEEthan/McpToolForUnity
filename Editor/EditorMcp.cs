@@ -104,7 +104,6 @@ namespace McpToolForUnity.Editor
 					Directory.CreateDirectory(destDir);
 					File.Copy(file, destFile, true);
 				}
-				Debug.Log($"Copied files from {toolPath} to {targetPath}");
 			}
 		}
 	}
