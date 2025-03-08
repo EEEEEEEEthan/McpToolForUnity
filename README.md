@@ -1,21 +1,54 @@
-1. copy /McpToolForUnity/ into your Unity project.
+# Introduction to McpToolForUnity
 
-2. cursor config {path}/McpCommand.exe 5000 {logpath}
+## Features
 
-![image](https://github.com/user-attachments/assets/623aa104-35e0-486c-880c-6405dff5f51a)
+Simply add the [McpTool] attribute to static methods to make them callable from editors like Cursor/windsurf.
+```csharp
+[McpTool("Add two numbers")]
+static int Add([McpTool("The first one")] int a, [McpTool("The second one")] int b)
+{
+    // Attribute for parameters are not necessary
+    return a + b;
+}
+```
 
-![image](https://github.com/user-attachments/assets/4a9013b3-c8df-45dc-987b-1044837511cc)
+![image](https://github.com/user-attachments/assets/1966a4ae-bf73-440b-8ecc-3108b368064d)
 
-3. Add attribute to static method
+## Installation
 
-![image](https://github.com/user-attachments/assets/17db7e30-eea6-42cd-8480-b61517d7dc20)
+### 1. Unity Package
 
-4. Reload Unity Assets
+Add the package from the git URL: https://github.com/EEEEEEEEthan/McpToolForUnity.git#unity-package
 
-5. Re-enable cursor mcp server
+This will create a McpCommand directory at the same level as Assets.
 
-![image](https://github.com/user-attachments/assets/88fd1f42-8abe-472d-91c4-314e1553e1a5)
+### 2. Attribute Everything
 
-6. Try agent
+Add the [McpTool] attribute to the static methods you want to call.
+```csharp
+[McpTool("Add two numbers")]
+static int Add([McpTool("The first one")] int a, [McpTool("The second one")] int b)
+{
+    // Attribute for parameters are not necessary
+    return a + b;
+}
+```
 
-![image](https://github.com/user-attachments/assets/c45660f0-9676-4ec0-8528-545474393d4d)
+### 3. Configure Cursor
+
+Add Mcp settings to Cursor.
+
+```
+Name: Any
+Type: command
+Command: {project_path}/McpCommand/McpCommand.exe
+```
+Replace `{project_path}` with the path to your Unity project.
+
+![image](https://github.com/user-attachments/assets/260ac691-de65-43e6-ba97-0c04dad43a64)
+
+![image](https://github.com/user-attachments/assets/346f3d13-7ff9-4377-b995-26fe09cf9352)
+
+### 4. Test Agent
+
+![image](https://github.com/user-attachments/assets/1966a4ae-bf73-440b-8ecc-3108b368064d)
