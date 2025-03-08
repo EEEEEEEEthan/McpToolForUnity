@@ -50,12 +50,12 @@ namespace McpToolForUnity.Editor
 		{
 			server = new();
 			server.threadedLog = false;
-			//server.Out = new UnityLogWriter();
+			server.Out = new UnityLogWriter();
 			server.Error = new UnityErrorWriter();
 			new Thread(registerTools).Start();
 			server.Start();
-			makeLink();
-			//Debug.Log("Mcp server started.");
+			copyFiles();
+			Debug.Log("Mcp server started.");
 
 			static void registerTools()
 			{
@@ -86,7 +86,7 @@ namespace McpToolForUnity.Editor
 				}
 			}
 
-			static void makeLink()
+			static void copyFiles()
 			{
 				var path = Path.Combine(Application.dataPath, "..", "McpCommand");
 				var targetPath = Path.GetFullPath(path);
@@ -96,10 +96,17 @@ namespace McpToolForUnity.Editor
 					var packagePath = Path.GetDirectoryName(editorFolderPath);
 					var toolPath = Path.Combine(packagePath, ".Command");
 					toolPath = Path.GetFullPath(toolPath);
-					// make link from toolPath to targetPath
-					var command = $"/c mklink /D {targetPath} {toolPath}";
-					Process.Start("cmd.exe", command);
-					Debug.Log($"execute: {command}");
+					// Copy toolPath folder to targetPath folder (overwrite)
+					Directory.CreateDirectory(targetPath);
+					foreach (var file in Directory.GetFiles(toolPath, "*", SearchOption.AllDirectories))
+					{
+						var relativePath = Path.GetRelativePath(toolPath, file);
+						var destFile = Path.Combine(targetPath, relativePath);
+						var destDir = Path.GetDirectoryName(destFile);
+						Directory.CreateDirectory(destDir);
+						File.Copy(file, destFile, true);
+					}
+					Debug.Log($"Copied files from {toolPath} to {targetPath}");
 				}
 			}
 		}
