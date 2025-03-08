@@ -12,7 +12,7 @@ static int Add([McpTool("The first one")] int a, [McpTool("The second one")] int
 }
 ```
 
-![image](https://github.com/user-attachments/assets/3ed7b3c9-ce78-4362-9684-3024904ada58)
+![image](https://github.com/user-attachments/assets/1966a4ae-bf73-440b-8ecc-3108b368064d)
 
 ## Installation
 
@@ -51,4 +51,4 @@ Replace `{project_path}` with the path to your Unity project.
 
 ### 4. Test Agent
 
-![image](https://github.com/user-attachments/assets/3ed7b3c9-ce78-4362-9684-3024904ada58)
+![image](https://github.com/user-attachments/assets/1966a4ae-bf73-440b-8ecc-3108b368064d)
