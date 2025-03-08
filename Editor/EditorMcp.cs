@@ -50,12 +50,12 @@ namespace McpToolForUnity.Editor
 		{
 			server = new();
 			server.threadedLog = false;
-			server.Out = new UnityLogWriter();
+			//server.Out = new UnityLogWriter();
 			server.Error = new UnityErrorWriter();
 			new Thread(registerTools).Start();
 			server.Start();
 			makeLink();
-			Debug.Log("Mcp server started.");
+			//Debug.Log("Mcp server started.");
 
 			static void registerTools()
 			{
