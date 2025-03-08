@@ -41,7 +41,7 @@ Add Mcp settings to Cursor.
 ```
 Name: Any
 Type: command
-Command: {project_path}/McpCommand/McpCommand.exe 5000 {project_path}/McpCommand/log.txt
+Command: {project_path}/McpCommand/McpCommand.exe
 ```
 Replace `{project_path}` with the path to your Unity project.
 
