@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -6,8 +7,9 @@ using System.Threading;
 using McpServer;
 using UnityEditor;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
-namespace Game.Vision.EditorTools
+namespace McpToolForUnity.Editor
 {
 	[InitializeOnLoad]
 	static class EditorMcp
@@ -50,10 +52,12 @@ namespace Game.Vision.EditorTools
 			server.threadedLog = false;
 			server.Out = new UnityLogWriter();
 			server.Error = new UnityErrorWriter();
-			new Thread(register).Start();
+			new Thread(registerTools).Start();
 			server.Start();
+			makeLink();
+			Debug.Log("Mcp server started.");
 
-			static void register()
+			static void registerTools()
 			{
 				// build tool list
 				var assemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -74,13 +78,30 @@ namespace Game.Vision.EditorTools
 						}
 					}
 				}
-				EditorApplication.update += Update;
-			}
-		}
+				EditorApplication.update += update;
 
-		static void Update()
-		{
-			server.Update();
+				static void update()
+				{
+					server.Update();
+				}
+			}
+
+			static void makeLink()
+			{
+				var path = Path.Combine(Application.dataPath, "..", "McpCommand");
+				var targetPath = Path.GetFullPath(path);
+				if (!Directory.Exists(targetPath))
+				{
+					var editorFolderPath = AssetDatabase.GUIDToAssetPath("36e3a6be7d0292c4a82ea0b9f7e79e00");
+					var packagePath = Path.GetDirectoryName(editorFolderPath);
+					var toolPath = Path.Combine(packagePath, ".Command");
+					toolPath = Path.GetFullPath(toolPath);
+					// make link from toolPath to targetPath
+					var command = $"/c mklink /D {targetPath} {toolPath}";
+					Process.Start("cmd.exe", command);
+					Debug.Log($"execute: {command}");
+				}
+			}
 		}
 	}
 }
