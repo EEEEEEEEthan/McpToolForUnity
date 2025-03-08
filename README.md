@@ -14,7 +14,7 @@
 
 5. Re-enable cursor mcp server
 
-![image](https://github.com/user-attachments/assets/9e81d5df-969d-404a-bf58-f02ba7b37e84)
+![image](https://github.com/user-attachments/assets/88fd1f42-8abe-472d-91c4-314e1553e1a5)
 
 6. Try agent
 
