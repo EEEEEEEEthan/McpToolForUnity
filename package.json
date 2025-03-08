@@ -1,8 +1,8 @@
 {
-  "name": "com.ethan.mcptool",
+  "name": "com.ethan.mcptoolforunity",
   "version": "1.0.0",
-  "displayName": "McpTool",
-  "description": "mcptool",
+  "displayName": "mcptoolforunity",
+  "description": "mcptoolforunity",
   "unity": "2020.3",
   "unityRelease": "0b5",
   "dependencies": {},
