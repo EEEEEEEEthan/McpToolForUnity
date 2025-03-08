@@ -1,0 +1,17 @@
+{
+  "name": "com.ethan.mcptoolforunity",
+  "version": "2.0.7",
+  "displayName": "McpToolForUnity",
+  "description": "Mcp tool for unity",
+  "unity": "2020.3",
+  "unityRelease": "0b5",
+  "dependencies": {},
+  "keywords": [
+    "mcp",
+    "cursor"
+  ],
+  "author": {
+    "name": "Ethan",
+    "email": "tyx1993@live.cn"
+  }
+}
