@@ -4,7 +4,7 @@
 
 ![image](https://github.com/user-attachments/assets/623aa104-35e0-486c-880c-6405dff5f51a)
 
-![image](https://github.com/user-attachments/assets/cecd6cbd-8e42-4836-9f58-4975860e4987)
+![image](https://github.com/user-attachments/assets/4a9013b3-c8df-45dc-987b-1044837511cc)
 
 3. Add attribute to static method
 
