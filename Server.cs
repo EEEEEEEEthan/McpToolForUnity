@@ -289,7 +289,7 @@ namespace McpToolForUnity
 						var length = reader.ReadInt32();
 						var bytes = reader.ReadBytes(length);
 						var text = System.Text.Encoding.UTF8.GetString(bytes);
-						Debug.Log($"Txt Received: {text}");
+						//Debug.Log($"Txt Received: {text}");
 						var jsonObject = JsonConvert.DeserializeObject<JObject>(text);
 						lock (requestQueue)
 						{
