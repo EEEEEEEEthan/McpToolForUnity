@@ -34,8 +34,6 @@ paste command to Cursor settings
 
 ![image](https://github.com/user-attachments/assets/1182cdfc-7cf1-4f0b-bf4e-4b401e086919)
 
-![image](https://github.com/user-attachments/assets/260ac691-de65-43e6-ba97-0c04dad43a64)
-
 ### 4. Attribute Everything
 
 Add the [McpTool] attribute to the static methods you want to call.
