@@ -22,7 +22,13 @@ Add the package from the git URL: https://github.com/EEEEEEEEthan/McpToolForUnit
 
 This will create a McpCommand directory at the same level as Assets.
 
-### 2. Attribute Everything
+### 2. Open Unity Preferences
+
+![image](https://github.com/user-attachments/assets/828f3f3e-1ade-41d7-aa65-7d78a92b82eb)
+
+restart Unity if you have modified `port`
+
+### 3. Attribute Everything
 
 Add the [McpTool] attribute to the static methods you want to call.
 ```csharp
@@ -34,9 +40,11 @@ static int Add([McpTool("The first one")] int a, [McpTool("The second one")] int
 }
 ```
 
-### 3. Configure Cursor
+### 4. Configure Cursor
 
-Add Mcp settings to Cursor.
+copy command to Cursor settings
+
+![image](https://github.com/user-attachments/assets/1182cdfc-7cf1-4f0b-bf4e-4b401e086919)
 
 ```
 Name: Any
@@ -49,6 +57,6 @@ Replace `{project_path}` with the path to your Unity project.
 
 ![image](https://github.com/user-attachments/assets/346f3d13-7ff9-4377-b995-26fe09cf9352)
 
-### 4. Test Agent
+### 5. Test Agent
 
 ![image](https://github.com/user-attachments/assets/1966a4ae-bf73-440b-8ecc-3108b368064d)
