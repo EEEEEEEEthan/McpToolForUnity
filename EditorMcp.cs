@@ -5,16 +5,47 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using UnityEditor;
+using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 namespace McpToolForUnity
 {
 	[InitializeOnLoad]
-	internal static class EditorMcp
+	static class EditorMcp
 	{
+		sealed class UnityLogWriter : TextWriter
+		{
+			public override Encoding Encoding => Encoding.Default;
+
+			public override void Write(char value)
+			{
+				Debug.Log(value);
+			}
+
+			public override void Write(string value)
+			{
+				Debug.Log(value);
+			}
+		}
+
+		sealed class UnityErrorWriter : TextWriter
+		{
+			public override Encoding Encoding => Encoding.Default;
+
+			public override void Write(char value)
+			{
+				Debug.LogError(value);
+			}
+
+			public override void Write(string value)
+			{
+				Debug.LogError(value);
+			}
+		}
+
 		static EditorMcp()
 		{
-			var server = new Server(8080);
+			var server = new Server(5000);
 			new Thread(registerTools).Start();
 			server.Start();
 			AssemblyReloadEvents.beforeAssemblyReload += () => server.Dispose();
@@ -49,6 +80,32 @@ namespace McpToolForUnity
 					server.Update();
 				}
 			}
+
+			static void copyFiles()
+			{
+				try
+				{
+					var path = Path.Combine(Application.dataPath, "..", "McpCommand");
+					var targetPath = Path.GetFullPath(path);
+					var editorFolderPath = AssetDatabase.GUIDToAssetPath("36e3a6be7d0292c4a82ea0b9f7e79e00");
+					var packagePath = Path.GetDirectoryName(editorFolderPath);
+					var toolPath = Path.Combine(packagePath, ".Client");
+					toolPath = Path.GetFullPath(toolPath);
+					// Copy toolPath folder to targetPath folder (overwrite)
+					Directory.CreateDirectory(targetPath);
+					foreach (var file in Directory.GetFiles(toolPath, "*", SearchOption.AllDirectories))
+					{
+						var relativePath = Path.GetRelativePath(toolPath, file);
+						var destFile = Path.Combine(targetPath, relativePath);
+						var destDir = Path.GetDirectoryName(destFile);
+						Directory.CreateDirectory(destDir);
+						File.Copy(file, destFile, true);
+					}
+				}
+				catch (Exception e)
+				{
+				}
+			}
 		}
 
 		[McpTool("launch game")]
@@ -61,36 +118,6 @@ namespace McpToolForUnity
 		static void StopGame()
 		{
 			EditorApplication.isPaused = false;
-		}
-
-		sealed class UnityLogWriter : TextWriter
-		{
-			public override Encoding Encoding => Encoding.Default;
-
-			public override void Write(char value)
-			{
-				Debug.Log(value);
-			}
-
-			public override void Write(string value)
-			{
-				Debug.Log(value);
-			}
-		}
-
-		sealed class UnityErrorWriter : TextWriter
-		{
-			public override Encoding Encoding => Encoding.Default;
-
-			public override void Write(char value)
-			{
-				Debug.LogError(value);
-			}
-
-			public override void Write(string value)
-			{
-				Debug.LogError(value);
-			}
 		}
 	}
 }
