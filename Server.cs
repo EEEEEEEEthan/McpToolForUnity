@@ -13,8 +13,17 @@ using UnityEngine;
 
 namespace McpToolForUnity
 {
-	sealed class Server : IDisposable
+	internal sealed class Server : IDisposable
 	{
+		static string GetTypeName(Type type)
+		{
+			if (type == typeof(int)) return "number";
+			if (type == typeof(float)) return "number";
+			if (type == typeof(double)) return "number";
+			if (type == typeof(string)) return "string";
+			return "object";
+		}
+
 		[SuppressMessage("ReSharper", "NotAccessedField.Local"),
 		 SuppressMessage("ReSharper", "CollectionNeverQueried.Local")]
 		struct Tool
@@ -45,16 +54,7 @@ namespace McpToolForUnity
 		enum LogType
 		{
 			Log,
-			Error,
-		}
-
-		static string GetTypeName(Type type)
-		{
-			if (type == typeof(int)) return "number";
-			if (type == typeof(float)) return "number";
-			if (type == typeof(double)) return "number";
-			if (type == typeof(string)) return "string";
-			return "object";
+			Error
 		}
 
 		readonly Queue<Action> requestQueue = new Queue<Action>();
@@ -70,7 +70,7 @@ namespace McpToolForUnity
 			if (disposed) throw new ObjectDisposedException(nameof(Server));
 			var thread = new Thread(start)
 			{
-				IsBackground = true,
+				IsBackground = true
 			};
 			thread.Start();
 
@@ -84,7 +84,7 @@ namespace McpToolForUnity
 						var client = tcpListener.AcceptTcpClient();
 						var thread = new Thread(() => HandleClient(client))
 						{
-							IsBackground = true,
+							IsBackground = true
 						};
 						thread.Start();
 					}
@@ -144,12 +144,12 @@ namespace McpToolForUnity
 				methodInfo = method,
 				name = method.Name,
 				description = desc,
-				inputSchema = new()
+				inputSchema = new InputSchema
 				{
 					type = "object",
-					properties = new(),
+					properties = new Dictionary<string, PropertyInfo>()
 				},
-				required = new(),
+				required = new List<string>()
 			};
 			foreach (var parameter in method.GetParameters())
 			{
@@ -157,18 +157,18 @@ namespace McpToolForUnity
 				if (parameterAttributes.Length > 0)
 				{
 					var parameterAttribute = (McpToolAttribute)parameterAttributes[0];
-					tool.inputSchema.properties[parameter.Name] = new()
+					tool.inputSchema.properties[parameter.Name] = new PropertyInfo
 					{
 						type = GetTypeName(parameter.ParameterType),
-						description = parameterAttribute.Description,
+						description = parameterAttribute.Description
 					};
 				}
 				else
 				{
-					tool.inputSchema.properties[parameter.Name] = new()
+					tool.inputSchema.properties[parameter.Name] = new PropertyInfo
 					{
 						type = GetTypeName(parameter.ParameterType),
-						description = "",
+						description = ""
 					};
 				}
 				tool.required.Add(parameter.Name);
@@ -200,29 +200,29 @@ namespace McpToolForUnity
 								logging = new { },
 								prompts = new
 								{
-									listChanged = true,
+									listChanged = true
 								},
 								resources = new
 								{
 									subscribe = true,
-									listChanged = true,
+									listChanged = true
 								},
 								tools = new
 								{
-									listChanged = true,
-								},
+									listChanged = true
+								}
 							},
 							serverInfo = new
 							{
 								name = "unity",
-								version = "1.0.0",
-							},
+								version = "1.0.0"
+							}
 						};
 						break;
 					case "tools/list":
 						res = new
 						{
-							tools = allTools.Values.ToArray(),
+							tools = allTools.Values.ToArray()
 						};
 						break;
 					case "tools/call":
@@ -247,10 +247,10 @@ namespace McpToolForUnity
 								new
 								{
 									type = "text",
-									text = v.ToString(),
-								},
+									text = v.ToString()
+								}
 							},
-							isError = false,
+							isError = false
 						};
 						break;
 					}
@@ -262,13 +262,13 @@ namespace McpToolForUnity
 				{
 					jsonrpc = "2.0",
 					id = idValue.Value<int>(),
-					result = res,
+					result = res
 				};
 			else
 				response = new
 				{
 					jsonrpc = "2.0",
-					result = res,
+					result = res
 				};
 			var jObject = JObject.FromObject(response);
 			return jObject;
