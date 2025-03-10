@@ -15,7 +15,7 @@ namespace McpToolForUnity
 	{
 		static EditorMcp()
 		{
-			var server = new Server(8080);
+			var server = new Server(Settings.Port);
 			new Thread(registerTools).Start();
 			server.Start();
 			AssemblyReloadEvents.beforeAssemblyReload += () => server.Dispose();
@@ -86,36 +86,6 @@ namespace McpToolForUnity
 		static void StopGame()
 		{
 			EditorApplication.isPaused = false;
-		}
-
-		sealed class UnityLogWriter : TextWriter
-		{
-			public override Encoding Encoding => Encoding.Default;
-
-			public override void Write(char value)
-			{
-				Debug.Log(value);
-			}
-
-			public override void Write(string value)
-			{
-				Debug.Log(value);
-			}
-		}
-
-		sealed class UnityErrorWriter : TextWriter
-		{
-			public override Encoding Encoding => Encoding.Default;
-
-			public override void Write(char value)
-			{
-				Debug.LogError(value);
-			}
-
-			public override void Write(string value)
-			{
-				Debug.LogError(value);
-			}
 		}
 	}
 }
