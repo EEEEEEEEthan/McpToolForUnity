@@ -28,19 +28,7 @@ This will create a McpCommand directory at the same level as Assets.
 
 restart Unity if you have modified `port`
 
-### 3. Attribute Everything
-
-Add the [McpTool] attribute to the static methods you want to call.
-```csharp
-[McpTool("Add two numbers")]
-static int Add([McpTool("The first one")] int a, [McpTool("The second one")] int b)
-{
-    // Attribute for parameters are not necessary
-    return a + b;
-}
-```
-
-### 4. Configure Cursor
+### 3. Configure Cursor
 
 copy command to Cursor settings
 
@@ -56,6 +44,20 @@ Replace `{project_path}` with the path to your Unity project.
 ![image](https://github.com/user-attachments/assets/260ac691-de65-43e6-ba97-0c04dad43a64)
 
 ![image](https://github.com/user-attachments/assets/346f3d13-7ff9-4377-b995-26fe09cf9352)
+
+### 4. Attribute Everything
+
+Add the [McpTool] attribute to the static methods you want to call.
+```csharp
+[McpTool("Add two numbers")]
+static int Add([McpTool("The first one")] int a, [McpTool("The second one")] int b)
+{
+    // Attribute for parameters are not necessary
+    return a + b;
+}
+```
+
+you need re-enable cursor MCP server to refresh tool list
 
 ### 5. Test Agent
 
