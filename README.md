@@ -30,16 +30,9 @@ restart Unity if you have modified `port`
 
 ### 3. Configure Cursor
 
-copy command to Cursor settings
+paste command to Cursor settings
 
 ![image](https://github.com/user-attachments/assets/1182cdfc-7cf1-4f0b-bf4e-4b401e086919)
-
-```
-Name: Any
-Type: command
-Command: {project_path}/McpCommand/McpCommand.exe
-```
-Replace `{project_path}` with the path to your Unity project.
 
 ![image](https://github.com/user-attachments/assets/260ac691-de65-43e6-ba97-0c04dad43a64)
 
