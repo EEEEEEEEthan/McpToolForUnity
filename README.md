@@ -36,8 +36,6 @@ paste command to Cursor settings
 
 ![image](https://github.com/user-attachments/assets/260ac691-de65-43e6-ba97-0c04dad43a64)
 
-![image](https://github.com/user-attachments/assets/346f3d13-7ff9-4377-b995-26fe09cf9352)
-
 ### 4. Attribute Everything
 
 Add the [McpTool] attribute to the static methods you want to call.
@@ -51,6 +49,8 @@ static int Add([McpTool("The first one")] int a, [McpTool("The second one")] int
 ```
 
 you need re-enable cursor MCP server to refresh tool list
+
+![image](https://github.com/user-attachments/assets/346f3d13-7ff9-4377-b995-26fe09cf9352)
 
 ### 5. Test Agent
 
