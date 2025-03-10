@@ -1,6 +1,6 @@
 using System;
 
-namespace McpServer
+namespace McpToolForUnity
 {
     public sealed class McpToolAttribute : Attribute
     {
