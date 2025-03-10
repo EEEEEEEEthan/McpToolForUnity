@@ -11,7 +11,7 @@ namespace McpToolForUnity
 		{
 			get
 			{
-				var portStr = EditorUserSettings.GetConfigValue(key) ?? "8080";
+				var portStr = EditorUserSettings.GetConfigValue(key) ?? "5000";
 				if (!ushort.TryParse(portStr, out var port)) port = 5000;
 				return port;
 			}
