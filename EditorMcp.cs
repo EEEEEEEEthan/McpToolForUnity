@@ -2,7 +2,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using UnityEditor;
 using UnityEngine;
@@ -13,13 +12,28 @@ namespace McpToolForUnity
 	[InitializeOnLoad]
 	internal static class EditorMcp
 	{
+		static Server server;
+
 		static EditorMcp()
 		{
-			var server = new Server(Settings.Port);
+			Start();
+			AssemblyReloadEvents.beforeAssemblyReload += () => server?.Dispose();
+			EditorApplication.quitting += () => server?.Dispose();
+		}
+
+		internal static void Stop()
+		{
+			server?.Dispose();
+			server = null;
+		}
+
+		internal static void Start()
+		{
+			if (!Settings.Enabled) return;
+			if (server != null) return;
+			server = new Server(Settings.Port);
 			new Thread(registerTools).Start();
 			server.Start();
-			AssemblyReloadEvents.beforeAssemblyReload += () => server.Dispose();
-			EditorApplication.quitting += () => server.Dispose();
 			copyFiles();
 
 			void registerTools()

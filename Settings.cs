@@ -3,19 +3,33 @@ using UnityEditor;
 
 namespace McpToolForUnity
 {
-	static class Settings
+	internal static class Settings
 	{
-		const string key = "McpToolForUnity.Port";
+		const string keyPort = "McpToolForUnity.Port";
+		const string keyEnabled = "McpToolForUnity.Enabled";
 
 		internal static int Port
 		{
 			get
 			{
-				var portStr = EditorUserSettings.GetConfigValue(key) ?? "5000";
+				var portStr = EditorUserSettings.GetConfigValue(keyPort) ?? "5000";
 				if (!ushort.TryParse(portStr, out var port)) port = 5000;
 				return port;
 			}
-			set => EditorUserSettings.SetConfigValue(key, value.ToString());
+			set => EditorUserSettings.SetConfigValue(keyPort, value.ToString());
+		}
+
+		internal static bool Enabled
+		{
+			get => EditorUserSettings.GetConfigValue(keyEnabled) != "false";
+			set
+			{
+				EditorUserSettings.SetConfigValue(keyEnabled, value ? "true" : "false");
+				if (value)
+					EditorMcp.Start();
+				else
+					EditorMcp.Stop();
+			}
 		}
 
 		static string Command => $"{Path.GetFullPath("McpCommand/McpCommand.exe")} {Port}";
@@ -26,11 +40,15 @@ namespace McpToolForUnity
 			var provider = new SettingsProvider("Preferences/Mcp Tool", SettingsScope.User)
 			{
 				label = "Mcp Tool",
-				guiHandler = static _ =>
+				guiHandler = _ =>
 				{
-					Port = (ushort)EditorGUILayout.IntField("Port", Port);
-					EditorGUILayout.TextField("Command", Command);
-					EditorGUILayout.LabelField(" ", "👆copy to cursor MCP Server Config (Command)");
+					Enabled = EditorGUILayout.Toggle("Enabled", Enabled);
+					if (Enabled)
+					{
+						Port = (ushort)EditorGUILayout.IntField("Port", Port);
+						EditorGUILayout.TextField("Command", Command);
+						EditorGUILayout.LabelField(" ", "👆copy to cursor MCP Server Config (Command)");
+					}
 				},
 				keywords = new[]
 				{
@@ -38,8 +56,8 @@ namespace McpToolForUnity
 					"Tool",
 					"Unity",
 					"Cursor",
-					"Windsurf",
-				},
+					"Windsurf"
+				}
 			};
 
 			return provider;
