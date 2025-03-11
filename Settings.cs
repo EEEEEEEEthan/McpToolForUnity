@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.IO;
 using UnityEditor;
 
@@ -16,7 +17,15 @@ namespace McpToolForUnity
 				if (!ushort.TryParse(portStr, out var port)) port = 5000;
 				return port;
 			}
-			set => EditorUserSettings.SetConfigValue(keyPort, value.ToString());
+			set
+			{
+				if (value != Port)
+				{
+					EditorUserSettings.SetConfigValue(keyPort, value.ToString());
+					EditorMcp.Stop();
+					EditorMcp.Start();
+				}
+			}
 		}
 
 		internal static bool Enabled
@@ -47,7 +56,7 @@ namespace McpToolForUnity
 					{
 						Port = (ushort)EditorGUILayout.IntField("Port", Port);
 						EditorGUILayout.TextField("Command", Command);
-						EditorGUILayout.LabelField(" ", "👆copy to cursor MCP Server Config (Command)");
+						EditorGUILayout.LabelField(" ", "👆paste to cursor MCP Server Config (Command)");
 					}
 				},
 				keywords = new[]
@@ -64,3 +73,4 @@ namespace McpToolForUnity
 		}
 	}
 }
+#endif

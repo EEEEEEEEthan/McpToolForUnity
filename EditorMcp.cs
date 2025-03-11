@@ -62,7 +62,7 @@ namespace McpToolForUnity
 
 				void update()
 				{
-					server.Update();
+					server?.Update();
 				}
 			}
 
