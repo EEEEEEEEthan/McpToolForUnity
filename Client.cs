@@ -235,6 +235,11 @@ namespace McpToolForUnity
 							Thread.Sleep(1000);
 							continue;
 						}
+						catch (ThreadAbortException)
+						{
+							Thread.Sleep(1000);
+							continue;
+						}
 						Log("mcp client created");
 						using var stream = client.GetStream();
 						using var reader = new BinaryReader(stream);
