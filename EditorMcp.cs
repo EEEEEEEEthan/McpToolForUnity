@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 using System.Reflection;
-using System.Threading;
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
@@ -12,29 +12,41 @@ namespace McpToolForUnity
 	[InitializeOnLoad]
 	internal static class EditorMcp
 	{
-		static Server server;
+		static Client client;
 
 		static EditorMcp()
 		{
+			Debug.Log("McpToolForUnity Editor");
 			Start();
-			AssemblyReloadEvents.beforeAssemblyReload += () => server?.Dispose();
-			EditorApplication.quitting += () => server?.Dispose();
+			AssemblyReloadEvents.beforeAssemblyReload += () => client?.Dispose();
+			EditorApplication.quitting += () => client?.Dispose();
 		}
 
 		internal static void Stop()
 		{
-			server?.Dispose();
-			server = null;
+			client?.Dispose();
+			client = null;
 		}
 
 		internal static void Start()
 		{
 			if (!Settings.Enabled) return;
-			if (server != null) return;
-			server = new Server(Settings.Port);
-			new Thread(registerTools).Start();
-			server.Start();
+			var port = Settings.Port;
+			Task.Run(() => StartAsync(port));
+		}
+
+		static void StartAsync(int port)
+		{
 			copyFiles();
+			registerTools();
+			client = new Client(port);
+			//Debug.Log("client created");
+			EditorApplication.update += update;
+
+			void update()
+			{
+				client?.Update();
+			}
 
 			void registerTools()
 			{
@@ -54,15 +66,9 @@ namespace McpToolForUnity
 									$"Attribute {nameof(McpToolAttribute)} can only be applied to static methods. {type.FullName}.{method.Name}");
 								continue;
 							}
-							server.RegisterTool(method.Name, method);
+							Client.RegisterTool(method.Name, method);
 						}
 					}
-				}
-				EditorApplication.update += update;
-
-				void update()
-				{
-					server?.Update();
 				}
 			}
 
@@ -86,20 +92,9 @@ namespace McpToolForUnity
 				}
 				catch (Exception e)
 				{
+					// ignored
 				}
 			}
-		}
-
-		[McpTool("launch game")]
-		static void LaunchGame()
-		{
-			EditorApplication.isPlaying = true;
-		}
-
-		[McpTool("stop game")]
-		static void StopGame()
-		{
-			EditorApplication.isPaused = false;
 		}
 	}
 }

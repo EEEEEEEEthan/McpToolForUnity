@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "McpCommand": {
+      "commandName": "Project",
+      "commandLineArgs": "8080 C:\\Projects\\kingdom\\Log.txt"
+    }
+  }
+}
