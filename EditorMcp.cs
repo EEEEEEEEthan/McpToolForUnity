@@ -16,7 +16,6 @@ namespace McpToolForUnity
 
 		static EditorMcp()
 		{
-			Debug.Log("McpToolForUnity Editor");
 			Start();
 			AssemblyReloadEvents.beforeAssemblyReload += () => client?.Dispose();
 			EditorApplication.quitting += () => client?.Dispose();
@@ -28,11 +27,12 @@ namespace McpToolForUnity
 			client = null;
 		}
 
-		internal static void Start()
+		internal static async void Start()
 		{
+			await Task.Delay(3000);
 			if (!Settings.Enabled) return;
 			var port = Settings.Port;
-			Task.Run(() => StartAsync(port));
+			await Task.Run(() => StartAsync(port));
 		}
 
 		static void StartAsync(int port)
