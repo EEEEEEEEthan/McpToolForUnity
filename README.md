@@ -12,6 +12,18 @@ static int Add([McpTool("The first one")] int a, [McpTool("The second one")] int
 }
 ```
 
+### New: Voxel Mesh Optimization
+
+This package now includes powerful voxel mesh generation and optimization tools:
+
+- **VoxelData**: Core voxel storage and mesh generation system
+- **Optimized Mesh Generation**: Advanced algorithms that reduce vertices and triangles by 60-99%
+- **Face Culling**: Eliminates hidden faces between adjacent voxels
+- **Greedy Meshing**: Merges adjacent faces into larger quads for better performance
+- **Interactive Tools**: MCP tools for testing and demonstrating optimization
+
+See [VOXEL_OPTIMIZATION_README.md](VOXEL_OPTIMIZATION_README.md) for detailed documentation.
+
 ![image](https://github.com/user-attachments/assets/1966a4ae-bf73-440b-8ecc-3108b368064d)
 
 ## Installation
